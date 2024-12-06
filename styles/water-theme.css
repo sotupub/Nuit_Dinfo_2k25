@@ -1,0 +1,475 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700&display=swap');
+
+:root {
+  --primary-dark: #1a365d;
+  --primary-light: #2c5282;
+  --accent-blue: #63b3ed;
+  --accent-teal: #4fd1c5;
+  --glass-bg: rgba(255, 255, 255, 0.08);
+  --glass-border: rgba(255, 255, 255, 0.12);
+  --glass-shine: rgba(255, 255, 255, 0.05);
+  --depth-shadow: rgba(0, 0, 0, 0.15);
+}
+
+.water-theme {
+  background: linear-gradient(
+    135deg,
+    var(--primary-dark),
+    var(--primary-light)
+  );
+  min-height: 100vh;
+  color: white;
+  position: relative;
+  overflow-x: hidden;
+  perspective: 1000px;
+}
+
+/* 3D Glassmorphism Cards */
+.glass-card {
+  background: var(--glass-bg) !important;
+  backdrop-filter: blur(20px);
+  border: 1px solid var(--glass-border) !important;
+  box-shadow: 
+    0 10px 30px var(--depth-shadow),
+    inset 0 1px var(--glass-shine);
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  transform-style: preserve-3d;
+  transform: translateZ(0);
+}
+
+.glass-card.glow {
+  position: relative;
+  overflow: hidden;
+}
+
+.glass-card.glow:hover {
+  transform: translateY(-5px) translateZ(10px);
+  box-shadow: 
+    0 20px 40px var(--depth-shadow),
+    inset 0 1px var(--glass-shine);
+}
+
+.glass-card.glow::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(
+    225deg,
+    transparent,
+    var(--glass-shine),
+    transparent
+  );
+  transform: translateY(-100%) translateX(-100%);
+  transition: transform 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+
+.glass-card.glow:hover::before {
+  transform: translateY(100%) translateX(100%);
+}
+
+/* 3D Wave Animation */
+.wave-container {
+  position: fixed;
+  width: 100%;
+  height: 100vh;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+  z-index: 0;
+  transform-style: preserve-3d;
+  perspective: 1000px;
+}
+
+.wave {
+  position: absolute;
+  width: 200%;
+  height: 200%;
+  background: linear-gradient(
+    45deg,
+    var(--accent-blue) 0%,
+    var(--accent-teal) 100%
+  );
+  opacity: 0.03;
+  top: -50%;
+  left: -50%;
+  border-radius: 40%;
+  animation: wave3D 20s infinite linear;
+  transform-style: preserve-3d;
+  transform-origin: 50% 50%;
+}
+
+.wave:nth-child(2) {
+  animation: wave3D 25s infinite linear;
+  opacity: 0.02;
+  transform: translateZ(-20px);
+}
+
+@keyframes wave3D {
+  from { 
+    transform: rotate(0deg) translateZ(0);
+  }
+  to { 
+    transform: rotate(360deg) translateZ(20px);
+  }
+}
+
+/* 3D Progress Bars */
+.water-progress {
+  background: var(--glass-bg);
+  border-radius: 8px;
+  overflow: hidden;
+  position: relative;
+  transform-style: preserve-3d;
+  perspective: 100px;
+}
+
+.water-progress-bar {
+  background: linear-gradient(
+    90deg,
+    var(--accent-blue),
+    var(--accent-teal)
+  );
+  border-radius: 8px;
+  position: relative;
+  transition: width 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+  transform: translateZ(2px);
+}
+
+.water-progress-bar::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    var(--glass-shine),
+    transparent
+  );
+  animation: progress3D 2s infinite cubic-bezier(0.4, 0, 0.2, 1);
+  transform: translateZ(1px);
+}
+
+@keyframes progress3D {
+  0% {
+    transform: translateX(-100%) translateZ(1px);
+  }
+  100% {
+    transform: translateX(100%) translateZ(2px);
+  }
+}
+
+/* Achievement Items with 3D */
+.achievement-item {
+  padding: 1rem;
+  border-radius: 12px;
+  background: var(--glass-bg);
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  transform-style: preserve-3d;
+  transform: translateZ(0);
+  border: 1px solid var(--glass-border);
+}
+
+.achievement-item:hover {
+  transform: scale(1.02) translateZ(5px);
+  background: var(--glass-bg);
+  box-shadow: 
+    0 8px 24px var(--depth-shadow),
+    inset 0 1px var(--glass-shine);
+}
+
+/* Charts with 3D Effect */
+.water-chart {
+  position: relative;
+  transform-style: preserve-3d;
+  perspective: 1000px;
+}
+
+.water-chart::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: var(--glass-bg);
+  border-radius: 12px;
+  transform: translateZ(-10px);
+  box-shadow: 0 4px 16px var(--depth-shadow);
+}
+
+/* Professional Number Animation */
+.animate-count {
+  animation: countUp3D 1s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+  opacity: 0;
+  transform: translateZ(-10px);
+}
+
+@keyframes countUp3D {
+  0% {
+    opacity: 0;
+    transform: translateY(10px) translateZ(-10px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) translateZ(0);
+  }
+}
+
+/* Elegant Scrollbar */
+.water-theme::-webkit-scrollbar {
+  width: 8px;
+}
+
+.water-theme::-webkit-scrollbar-track {
+  background: var(--glass-bg);
+  border-radius: 4px;
+}
+
+.water-theme::-webkit-scrollbar-thumb {
+  background: linear-gradient(
+    var(--accent-blue),
+    var(--accent-teal)
+  );
+  border-radius: 4px;
+  border: 2px solid transparent;
+  background-clip: padding-box;
+  transition: all 0.3s ease;
+}
+
+.water-theme::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(
+    var(--accent-teal),
+    var(--accent-blue)
+  );
+  border: 1px solid transparent;
+}
+
+/* Interactive Elements */
+button, 
+a, 
+select, 
+input {
+  transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  transform-style: preserve-3d;
+}
+
+button:hover, 
+a:hover, 
+select:hover, 
+input:focus {
+  transform: translateZ(5px);
+}
+
+/* Stats Cards 3D Layout */
+.stats-grid {
+  display: grid;
+  gap: 1.5rem;
+  transform-style: preserve-3d;
+  perspective: 1000px;
+}
+
+.stats-card {
+  transform: translateZ(0);
+  transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.stats-card:hover {
+  transform: translateZ(10px) scale(1.02);
+}
+
+/* Data Visualization Enhancement */
+.chart-container {
+  position: relative;
+  transform-style: preserve-3d;
+  perspective: 1000px;
+}
+
+.chart-container::after {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  background: linear-gradient(
+    45deg,
+    transparent,
+    var(--glass-shine),
+    transparent
+  );
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+  border-radius: inherit;
+}
+
+.chart-container:hover::after {
+  opacity: 1;
+}
+
+/* Ripple Effect */
+.ripple-effect {
+  position: relative;
+  overflow: hidden;
+}
+
+.ripple-effect::after {
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+  background-image: radial-gradient(circle, rgba(255, 255, 255, 0.3) 10%, transparent 10.01%);
+  background-repeat: no-repeat;
+  background-position: 50%;
+  transform: scale(10, 10);
+  opacity: 0;
+  transition: transform 0.5s, opacity 1s;
+}
+
+.ripple-effect:active::after {
+  transform: scale(0, 0);
+  opacity: 0.3;
+  transition: 0s;
+}
+
+/* Wave Animation */
+.wave-container {
+  position: fixed;
+  width: 100%;
+  height: 100vh;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.wave {
+  position: absolute;
+  width: 200%;
+  height: 200%;
+  background: linear-gradient(45deg, rgba(79, 195, 247, 0.05), rgba(79, 195, 247, 0.1));
+  top: -50%;
+  left: -50%;
+  border-radius: 40%;
+  animation: wave 15s infinite linear;
+  transform-origin: 50% 50%;
+}
+
+.wave:nth-child(2) {
+  animation: wave 17s infinite linear;
+  opacity: 0.5;
+  background: linear-gradient(45deg, rgba(129, 212, 250, 0.05), rgba(129, 212, 250, 0.1));
+}
+
+@keyframes wave {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+/* Progress Bars */
+.water-progress {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 4px;
+  overflow: hidden;
+  position: relative;
+}
+
+.water-progress-bar {
+  background: linear-gradient(90deg, rgba(79, 195, 247, 0.6), rgba(129, 212, 250, 0.8));
+  border-radius: 4px;
+  position: relative;
+  transition: width 0.5s ease;
+}
+
+.water-progress-bar::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.4),
+    transparent
+  );
+  animation: wave-progress 2s infinite linear;
+}
+
+@keyframes wave-progress {
+  from { transform: translateX(-100%); }
+  to { transform: translateX(100%); }
+}
+
+/* Achievement Items */
+.achievement-item {
+  padding: 0.75rem;
+  border-radius: 0.5rem;
+  background: rgba(79, 195, 247, 0.1);
+  transition: all 0.3s ease;
+}
+
+.achievement-item:hover {
+  transform: translateY(-2px);
+  background: rgba(79, 195, 247, 0.15);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* Charts */
+.water-chart {
+  position: relative;
+}
+
+.water-chart::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(255, 255, 255, 0.02);
+  border-radius: 8px;
+}
+
+/* Number Animation */
+.animate-count {
+  animation: countUp 1s ease-out forwards;
+  opacity: 0;
+  transform: translateY(10px);
+}
+
+@keyframes countUp {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Custom Scrollbar */
+.water-theme::-webkit-scrollbar {
+  width: 8px;
+}
+
+.water-theme::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.water-theme::-webkit-scrollbar-thumb {
+  background: rgba(79, 195, 247, 0.3);
+  border-radius: 4px;
+}
+
+.water-theme::-webkit-scrollbar-thumb:hover {
+  background: rgba(79, 195, 247, 0.5);
+}
